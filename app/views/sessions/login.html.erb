@@ -1,0 +1,26 @@
+<% provide(:title, "Login") %>
+<h1>Login</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for( @user, url: login_path) do |f| %>
+
+      <%= f.label :username_or_email %>
+      <%= f.text_field :email, :id => "user_username_or_email" %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.submit "Login", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+    <p>
+      New user? <%= link_to "Sign up now!", signup_path %>
+    </p>
+    
+    <p>
+      Old user? <%= link_to "Can't access your account?", reset_password_path%>
+    </p>
+    
+  </div>
+</div>
