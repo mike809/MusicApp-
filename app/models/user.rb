@@ -24,10 +24,12 @@ class User < ActiveRecord::Base
     :message =>  "%{value} is already registered."
   }
   
+  validates :session_token, :uniqueness => true
+  
   validates :email, :presence => true, 
             :format => { :with => VALID_EMAIL_REGEX },
             :uniqueness => { :case_sensitive => false }
-            
+
   validates :password, :presence => true, 
                        :length => { :minimum => 6 },
                        :if => "!@password.nil?"
@@ -35,9 +37,10 @@ class User < ActiveRecord::Base
   validates :username, :presence => true,
             :format => { :with => VALID_USERNAME_REGEX },
             :uniqueness => { :case_sensitive => false },
-            :on => :create
+            :on => :create, 
+            :on => :update
   
-  before_validation :reset_session_token!
+  before_validation :reset_session_token!, :on => :create
   
   def self.default
     self.new(:email => "", :password => "", :username => "")
@@ -71,8 +74,6 @@ class User < ActiveRecord::Base
   
   def reset_password_token!
     self.password_reset_token = SecureRandom.urlsafe_base64
-    self.save!
-    self.password_reset_token
   end
   
   def reset_session_token!

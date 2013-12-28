@@ -1,6 +1,10 @@
 MusicApp::Application.routes.draw do
   
-  resources :users, :only => [:show, :edit, :update, :destroy]  
+  resources :users, :only => [:show, :edit, :update, :destroy] do
+    resources :events, :only => [:new, :create, :edit, :update, :show, :index]
+  end
+  
+  resources :events, :only => :index
   
   get '/signup', :to => 'users#new', :as => 'signup'
   post '/signup', :to => 'users#create', :as => 'signup'    
@@ -15,16 +19,11 @@ MusicApp::Application.routes.draw do
   match '/contact', :to => 'static_pages#contact'
   
   get '/reset_password', :to => 'password_reseters#new', :as => 'reset_password'
-  post '/reset_password',
+  post '/reset_password/',
        :to => 'password_reseters#create',
        :as => 'reset_password'
+       
+  get '/new_password', :to =>  'password_reseters#edit'
   
-  resources :bands do
-    resources :albums, :except => :show
-  end
-  
-  resources :albums, :only => [:show] do
-    resources :tracks
-  end
    
 end

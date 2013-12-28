@@ -14,11 +14,11 @@ class UserMailer < ActionMailer::Base
     @url = Addressable::URI.new(
       :scheme => "http",
       :host => "localhost:3000",
-      :path => "reset_password",
+      :path => "new_password",
       :query_values => { :token => @user.reset_password_token! }
     ).to_s
-    
-    mail(:to => @user.email, :subject => 'Reset your MusicApp password')
+    @user.save
+    mail(:to => @user.email, :subject => 'Reset your Socialize password')
   end
   
 end

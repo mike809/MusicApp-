@@ -9,16 +9,17 @@ class PasswordResetersController < ApplicationController
   
   def create
     type_of_credential = User.username_or_email(params[:user][:email])
+    
     if type_of_credential == :username
       email = User.find_by_username(params[:user][:email]).email
     end
-    
+
     default_value = params[:user][:email]
     @user = User.find_by_email(email)
-    
+      
     if @user
       msg = UserMailer.reset_password_email(@user)
-      msg.deliver!
+      msg.deliver
       redirect_to home_url
     else
       flash_now("Email invalid.")
@@ -27,12 +28,16 @@ class PasswordResetersController < ApplicationController
     end
   end
   
-  def edit #set new password
+  def edit
+    @user = User.find_by_password_reset_token(params[:token])
     
-  end
-  
-  def destroy
-    
+    if @user
+      session[:password_token] = params[:token]
+      render :edit
+    else
+      flash_msg("This token has expired.")
+      redirect_to home_url
+    end
   end
   
 end

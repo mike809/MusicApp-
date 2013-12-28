@@ -60,6 +60,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
+    geocoder (1.1.9)
     haml (4.0.4)
       tilt
     hike (1.2.3)
@@ -156,6 +157,7 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   debugger
+  geocoder
   jquery-rails
   mailcatcher
   rails (= 3.2.15)

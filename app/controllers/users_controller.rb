@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   
   skip_before_filter :require_login, :only => [:new, :create]
-                  
+  
   def new
     @user = User.default
     render :signup
@@ -35,9 +35,17 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = current_user
-    if @user.confirm_user(params[:user][:password])
+    user_password = User.find_by_password_reset_token(session[:password_token])
+    session[:password_token] = nil 
+    
+    
+    @user = current_user 
+  
+    if @user = user_password || @user.confirm_user(params[:user][:password])
       params[:user][:password] = params[:user].delete(:new_password)
+      @user.password_reset_token = nil
+      
+      @user.reset_password_token! unless logged_in?
       
       if @user.update_attributes(params[:user])
         flash_msg("Information successfuly updated.", :success)
