@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  location: MyString
+  minimum_age: 1
+  poster: 
+  rate: 1
+  date: 2013-12-27
+
+two:
+  title: MyString
+  description: MyString
+  location: MyString
+  minimum_age: 1
+  poster: 
+  rate: 1
+  date: 2013-12-27
