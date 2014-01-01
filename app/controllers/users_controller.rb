@@ -38,15 +38,13 @@ class UsersController < ApplicationController
     user_password = User.find_by_password_reset_token(session[:password_token])
     session[:password_token] = nil 
     
-    
     @user = current_user 
-  
-    if @user = user_password || @user.confirm_user(params[:user][:password])
-      params[:user][:password] = params[:user].delete(:new_password)
+    @user ||= user_password 
+    
+    if @user.confirm_password(params[:user][:password]) ||
+          @user.password_reset_token
+          
       @user.password_reset_token = nil
-      
-      @user.reset_password_token! unless logged_in?
-      
       if @user.update_attributes(params[:user])
         flash_msg("Information successfuly updated.", :success)
         login(@user)
@@ -56,7 +54,7 @@ class UsersController < ApplicationController
         render :edit
       end
     else
-      flash_now("Wrong Password.")
+      flash_now("Incorrect Password.")
       render :edit
     end
   end

@@ -4,8 +4,8 @@
       <%= link_to "Socialize", home_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home", home_path %></li>
           <% if logged_in? %>
+            <li><%= link_to "#{0} Notifications", '#' %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Events <b class="caret"></b>

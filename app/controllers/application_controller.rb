@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   
   include SessionHelper
   include UsersHelper
+  include EventsHelper
   include ApplicationHelper
   
   before_filter :require_login

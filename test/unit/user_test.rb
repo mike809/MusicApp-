@@ -10,6 +10,9 @@
 #  updated_at           :datetime         not null
 #  username             :string(255)
 #  password_reset_token :string(255)
+#  reset_password       :datetime
+#  first_name           :string(255)
+#  last_name            :string(255)
 #
 
 require 'test_helper'

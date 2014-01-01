@@ -4,6 +4,8 @@ MusicApp::Application.routes.draw do
     resources :events, :only => [:new, :create, :edit, :update, :show, :index]
   end
   
+  get "event/show_image" => "events#show_image"
+  
   resources :events, :only => :index
   
   get '/signup', :to => 'users#new', :as => 'signup'
