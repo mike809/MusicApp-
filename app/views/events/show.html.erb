@@ -1,0 +1,37 @@
+<% provide(:title, @event.title) %>
+
+<div class="row">
+  <aside class="span4">
+    <section class="indent-1">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.username %>
+      </h1>
+    </section>
+    
+    <section class="indent-2" >
+      <h1>
+        <%= @event.title %>
+      </h1>
+      
+      <%= image_tag url_for(:controller => "events",
+                            :action => "show_image", :id => @event.id,
+                            :align => "right") %>
+                            
+      <label>Description:</label>
+      <p>
+        <%= @event.description %>
+      </p>
+      </br>
+      <label>Minimum age:</label>
+      <p>
+        <%= @event.minimum_age %>
+      </p>
+      </br>
+      <label>Location:</label>
+      <p>
+        <%= @event.location %>
+      </p>
+    </section>
+  </aside>
+</div>

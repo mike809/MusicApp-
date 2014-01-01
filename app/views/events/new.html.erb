@@ -3,13 +3,13 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(:event) do |f| %>
+    <%= form_for(:event, url: user_events_url) do |f| %>
 
       <%= f.label :title %>
       <%= f.text_field :title %>
 
       <%= f.label :description %>
-      <%= f.text_field :description %>
+      <%= f.text_area :description %>
       
       <%= f.label :location %>
       <%= f.text_field :location %>
@@ -18,7 +18,7 @@
       <%= f.text_field :minimum_age %>
         
       <%= f.label :date %>
-      <%= f.datetime_select :date %>
+      <%= f.datetime_select :date, :ampm => true, :minute_step => 15 %>
       
       <%= f.label :poster %>
       <%= f.file_field :poster %>
