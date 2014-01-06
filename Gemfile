@@ -6,7 +6,6 @@ gem 'bootstrap-sass'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'addressable'
 gem 'geocoder'
 gem 'will_paginate'
@@ -14,6 +13,7 @@ gem 'bootstrap-will_paginate'
 gem 'sunspot_rails'
 gem 'devise'
 gem 'strong_parameters'
+gem 'sunspot_solr'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,13 +27,17 @@ group :assets do
 end
 
 group :development do
-  gem 'sunspot_solr'
+  gem 'sqlite3'
   gem 'mailcatcher'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'debugger'
   gem 'rails_layout'
+end
+
+group :production do
+  gem 'pg'
 end
 
 gem 'jquery-rails'
