@@ -97,6 +97,7 @@ GEM
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     rack (1.4.5)
@@ -195,6 +196,7 @@ DEPENDENCIES
   geocoder
   jquery-rails
   mailcatcher
+  pg
   rails (= 3.2.15)
   rails_layout
   sass-rails (~> 3.2.3)
