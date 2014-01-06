@@ -39,22 +39,27 @@ class User < ActiveRecord::Base
                   :first_name, :last_name, :login
                   
   attr_accessor :login
-  
-  validates :username, :presence => true, :uniqueness => {
+    
+  validates :username, :uniqueness => {
     :message => "%{value} is already registered.",
     :case_sensitive => false
   }
 
-  validates :email, :presence => true, 
+  validates :email, 
             :format => { :with => VALID_EMAIL_REGEX },
             :uniqueness => { :case_sensitive => false }
 
+  validates :email, :presence => true,
+            :on => :create,
+            :on => :update
+            
   validates :password,
             :presence => true,
             :length => { :minimum => 6 },
             :on => :create
-
-  validates :username, :presence => true,
+    
+  validates :username,
+            :presence => true,
             :format => { :with => VALID_USERNAME_REGEX },
             :on => :create, 
             :on => :update
@@ -73,30 +78,27 @@ class User < ActiveRecord::Base
   end
     
   def self.find_first_by_auth_conditions(warden_conditions)
-    debugger
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(
-        ["username = :value OR lower(email) = lower(:value)",
-          { :value => login.downcase }]
-      ).first
+      where(["lower(username) = :value OR lower(email) = :value", 
+        { :value => login.strip.downcase }]).first
     else
       where(conditions).first
     end
   end
   
-  def self.find_for_database_authentication(warden_conditions)
-    debugger
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(
-        ["username = :value OR lower(email) = lower(:value)",
-          { :value => login.downcase }]
-      ).first
-    else
-      where(conditions).first
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+#     debugger
+#     conditions = warden_conditions.dup
+#     if login = conditions.delete(:login)
+#       where(conditions).where(
+#         ["username = :value OR lower(email) = lower(:value)",
+#           { :value => login.downcase }]
+#       ).first
+#     else
+#       where(conditions).first
+#     end
+#   end
   
   def self.search(_keywords)
     search = Sunspot.search(User) do
@@ -104,11 +106,7 @@ class User < ActiveRecord::Base
     end
     @results = search.results 
   end
-  
-  # def email_required?
-#     false
-#   end
-#   
+
   def full_name
     "#{self.first_name} #{self.last_name}"
   end

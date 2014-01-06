@@ -17,7 +17,7 @@ MusicApp::Application.routes.draw do
     
     get '/password' => 'devise/passwords#new', :as => :reset_password
     post '/password' => 'devise/passwords#create',:as => :reset_password
-    get 'password/edit' => 'devise/passwords#edit'
+    get 'password/edit' => 'devise/passwords#edit', :as => :password_edit
     put '/password' => 'devise/passwords#update'
   end
              
