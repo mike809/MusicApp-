@@ -25,8 +25,22 @@ class Event < ActiveRecord::Base
   
   belongs_to :user
   
+  searchable do
+    text :title, :description
+    # text :comments do
+#       comments.map { |comment| comment.body }
+#     end
+    text :location
+  end
+  
   def init_rate
     self.rate = 0
   end
   
+  def self.search(_keywords)
+    search = Sunspot.search(Event) do
+      keywords _keywords
+    end
+    @results = search.results 
+  end
 end

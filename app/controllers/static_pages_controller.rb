@@ -1,12 +1,13 @@
 class StaticPagesController < ApplicationController
-  skip_before_filter :require_login
+  
+  skip_before_filter :authenticate_user!
   
   def home
     @user = current_user
     unless @user.nil?
       @events = @user.events
-      if logged_in?
-        render template:"events/index"
+      if user_signed_in?
+        render template: "events/index"
       else
         render :home
       end

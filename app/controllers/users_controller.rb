@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   
-  skip_before_filter :require_login, :only => [:new, :create]
+  skip_before_filter :authenticate_user!, :only => [:new, :create]
   
   def new
     @user = User.default
     render :signup
   end
   
-  def create #signup
+  def create
     @user = User.new(params[:user])
     if @user.save
       self.login(@user)
@@ -58,5 +58,5 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
+  
 end

@@ -9,6 +9,11 @@ gem 'bootstrap-sass'
 gem 'sqlite3'
 gem 'addressable'
 gem 'geocoder'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'sunspot_rails'
+gem 'devise'
+gem 'strong_parameters'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,8 +26,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
 group :development do
+  gem 'sunspot_solr'
   gem 'mailcatcher'
   gem 'annotate'
   gem 'better_errors'

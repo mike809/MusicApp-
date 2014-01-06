@@ -34,7 +34,7 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
+  font-size: 1.0em;
   line-height: 1.7em;
 }
 
@@ -44,6 +44,9 @@ label{
 
 /* header */
 
+div.navbar-inner{
+  height: 42px;
+}
 .navbar-inverse .nav > li > a {
   color: $b_orange;
   &:hover {
@@ -99,6 +102,14 @@ footer {
 
 /* universal */
 
+input.btn.btn-large.btn-primary {
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+   line-height:10px;
+   margin:5px;
+}
+
 html {
   overflow-y: scroll;
 }
@@ -116,17 +127,32 @@ html {
   width: 79px;
 }
 
+#search_keywords{
+  margin:5px;
+  font-size: 10pt;
+  width:20em;
+  color:lightgray;
+}
+
 .indent-1 {
   float: left;
 }
 .indent-2 {
-  width: 100%;
-  padding-left: 10cm;
+  width: 200%;
+  padding-left: 5cm;
+}
+
+#formbox div {
+  display:inline-block;
+}
+
+li {
+  display:inline-block;
 }
 
 body {
   padding-top: 60px;
-  color: white;
+  color: red;
 
   background: url(/assets/background2.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;

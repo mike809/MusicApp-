@@ -5,33 +5,30 @@
     <title><%= content_for?(:title) ? yield(:title) : "Sozialize" %></title>
       <metaname="description" content="<%=content_for? (:description) ? 
       yield(:description) : "Sozialize" %>">
-                  
+       
     <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
+    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" %>
     <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/
-                                jqueryui/1.8/jquery-ui.min.js' %>
-    <%= stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/
-                             1.8/themes/smoothness/jquery-ui.css" %>
+    
     <%= csrf_meta_tags %>
   </head>
   <body>
     
-    <header>
-      <%= render 'layouts/header' %>
-    </header>
+    <%= render 'layouts/header' %>
     
-    <div class="container">	
-	    <% flash.each do |key, value| %>
-        <% value.each do |val|  %>
-	        <%= content_tag(:div, val, class: "alert alert-#{key}") %>
-	      <% end %>
-      <% end %>
+    <div class="container">	  
         
-      <%= yield %>
+      <% if notice %>
+        <p class="alert alert-notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-error"><%= alert %></p>
+      <% end %>
       
-      <footer>
-        <%= render 'layouts/footer' %>
-      </footer>
+      <%= yield %>
+
+      <%= render 'layouts/footer' %>
         
       <%= debug(params) if Rails.env.development? %>
       <%= debug(session) if Rails.env.development? %>

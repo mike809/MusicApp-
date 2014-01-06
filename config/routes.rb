@@ -1,31 +1,39 @@
 MusicApp::Application.routes.draw do
-  
-  resources :users, :only => [:show, :edit, :update, :destroy] do
+
+  devise_for :users, :skip => [:sessions, :registrations, :passwords]
+  as :user do
+    get '/login ' => 'devise/sessions#new', :as => :login
+    get '/login' => 'devise/sessions#new', :as => :new_user_session
+    
+    post '/login' => 'devise/sessions#create', :as => :login
+    delete '/logout' => 'devise/sessions#destroy', :as => :logout
+    
+    get '/singup' => 'devise/registrations#new', :as => :signup
+    post '/singup' => 'devise/registrations#create', :as => :signup
+    
+    get '/users/:id/edit' => 'devise/registrations#edit', :as => :edit_user
+    put '/users/:id/' => 'devise/registrations#update', :as => :update_user
+    delete '/users' => 'devise/registrations#destroy', :as => :delete_user
+    
+    get '/password' => 'devise/passwords#new', :as => :reset_password
+    post '/password' => 'devise/passwords#create',:as => :reset_password
+    get 'password/edit' => 'devise/passwords#edit'
+    put '/password' => 'devise/passwords#update'
+  end
+             
+  resources :users, :only => :show do
     resources :events, :only => [:new, :create, :edit, :update, :show, :index]
   end
   
   get "event/show_image" => "events#show_image"
+  get "/search" => "search#create"
+  post "/search" => "search#create"
   
   resources :events, :only => :index
-  
-  get '/signup', :to => 'users#new', :as => 'signup'
-  post '/signup', :to => 'users#create', :as => 'signup'    
-  
-  get '/login', :to => 'sessions#new', :as => 'login'
-  post '/login', :to => 'sessions#create'
-  delete '/logout', :to => 'sessions#destroy', :as => 'logout'
   
   root              :to => 'static_pages#home', :as => 'home'
   match '/help',    :to => 'static_pages#help'
   match '/about',   :to => 'static_pages#about'
   match '/contact', :to => 'static_pages#contact'
-  
-  get '/reset_password', :to => 'password_reseters#new', :as => 'reset_password'
-  post '/reset_password/',
-       :to => 'password_reseters#create',
-       :as => 'reset_password'
-       
-  get '/new_password', :to =>  'password_reseters#edit'
-  
    
 end

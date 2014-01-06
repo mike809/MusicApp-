@@ -1,30 +1,28 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  include SessionHelper
   include UsersHelper
   include EventsHelper
   include ApplicationHelper
   
-  before_filter :require_login
- 
-  private
-
-  def require_login
-    unless logged_in? || valid_reset_token?
-     flash_msg("You must be logged in to access this section.")
-     redirect_to login_url
-   end
-  end
+#  before_filter :authenticate_user!
+  before_filter :configure_devise_params, if: :devise_controller?
   
-  def valid_reset_token?
-    User.find_by_password_reset_token(session[:password_token])
-  end
+  protected
   
-  def require_not_login
-    if user = logged_in?
-     redirect_to user_url(user)
-   end
- end
- 
+  def configure_devise_params
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit(:username, :email, 
+                 :password, :password_confirmation, 
+                 :remember_me, :first_name, :last_name) 
+      end
+      
+      devise_parameter_sanitizer.for(:sign_in) do |u|
+        u.permit(:login, :password, :remember_me)
+      end
+      devise_parameter_sanitizer.for(:account_update) do |u|
+        u.permit(:username, :email, :password, :password_confirmation,
+                 :current_password, :first_name, :last_name) 
+      end
+    end
 end
