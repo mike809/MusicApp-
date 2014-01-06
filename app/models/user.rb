@@ -87,19 +87,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  # def self.find_for_database_authentication(warden_conditions)
-#     debugger
-#     conditions = warden_conditions.dup
-#     if login = conditions.delete(:login)
-#       where(conditions).where(
-#         ["username = :value OR lower(email) = lower(:value)",
-#           { :value => login.downcase }]
-#       ).first
-#     else
-#       where(conditions).first
-#     end
-#   end
-  
   def self.search(_keywords)
     search = Sunspot.search(User) do
       keywords _keywords

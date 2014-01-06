@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include EventsHelper
   include ApplicationHelper
   
-# before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_filter :configure_devise_params, if: :devise_controller?
   
   protected
