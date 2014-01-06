@@ -3,6 +3,7 @@ ruby "1.9.3"
 
 gem 'rails', '3.2.15'
 gem 'bootstrap-sass'
+gem 'rails_12factor'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
