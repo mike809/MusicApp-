@@ -54,11 +54,11 @@ MusicApp::Application.configure do
     :authentication => :plain,
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD'],
-    # :domain => 'heroku.com'
+    :domain => 'heroku.com'
   }
   
   config.action_mailer.default_url_options = { 
-    host: 'localhost:3000'}# 'http://www.socialife.heroku.com' }
+    host: 'http://www.socialife.heroku.com' }
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
