@@ -60,7 +60,7 @@ MusicApp::Application.configure do
   
   
   config.action_mailer.default_url_options = { 
-    :protocol => 'https', host: 'socialife' }
+    :protocol => 'https', host: 'socialife.heroku.com' }
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
