@@ -5,7 +5,6 @@ require File.expand_path('../application', __FILE__)
 MusicApp::Application.initialize!
 
 ActionMailer::Base.delivery_method = :smtp
-config.action_mailer.default_url_options = { host: 'socialife.heroku.com' }
 ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.sendgrid.net',
   :port           => '587',
