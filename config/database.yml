@@ -22,5 +22,5 @@ test:
 production:
   adapter: postgresql
   host: localhost
-  username: Mike
+  username: user
   database: app-dev
