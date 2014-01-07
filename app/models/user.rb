@@ -66,13 +66,13 @@ class User < ActiveRecord::Base
   
   has_many :events
   
-  searchable do
-    text :username, :first_name, :last_name
-#     text :events do
-#       events.map { |event| event.title }
-#     end
-  end
-  
+  # searchable do
+#     text :username, :first_name, :last_name
+# #     text :events do
+# #       events.map { |event| event.title }
+# #     end
+#   end
+#   
   def self.default
     self.new(:email => "", :password => "", :username => "")
   end
@@ -87,11 +87,9 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.search(_keywords)
-    search = Sunspot.search(User) do
-      keywords _keywords
-    end
-    @results = search.results 
+  def self.search(keywords)
+    User.where("username %:val% OR first_name like %:val% OR \
+                last_name like %:val%", {:val => keywords}) || []
   end
 
   def full_name

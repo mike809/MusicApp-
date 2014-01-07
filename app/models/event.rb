@@ -25,22 +25,20 @@ class Event < ActiveRecord::Base
   
   belongs_to :user
   
-  searchable do
-    text :title, :description
-    # text :comments do
-#       comments.map { |comment| comment.body }
-#     end
-    text :location
-  end
+#   searchable do
+#     text :title, :description
+#     # text :comments do
+# #       comments.map { |comment| comment.body }
+# #     end
+#     text :location
+#   end
   
   def init_rate
     self.rate = 0
   end
   
-  def self.search(_keywords)
-    search = Sunspot.search(Event) do
-      keywords _keywords
-    end
-    @results = search.results 
+  def self.search(keywords)
+    Event.where("title LIKE %:val% OR description LIKE %:val% OR \
+                location LIKE %:val%", {:val => keywords}) || []
   end
 end

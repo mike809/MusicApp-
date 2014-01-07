@@ -15,7 +15,6 @@ gem 'bootstrap-will_paginate'
 gem 'sunspot_rails'
 gem 'devise'
 gem 'strong_parameters'
-gem 'sunspot_solr'
 
 # Gems used only for assets and not required
 # in production environments by default.
