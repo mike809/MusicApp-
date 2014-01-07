@@ -88,8 +88,8 @@ class User < ActiveRecord::Base
   end
   
   def self.search(keywords)
-    User.where("username %:val% OR first_name like %:val% OR \
-                last_name like %:val%", {:val => keywords}) || []
+    User.where("username :val OR first_name like :val OR \
+                last_name like :val", {:val => "%#{keywords}%"}) || []
   end
 
   def full_name

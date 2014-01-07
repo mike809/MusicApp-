@@ -38,7 +38,7 @@ class Event < ActiveRecord::Base
   end
   
   def self.search(keywords)
-    Event.where("title LIKE %:val% OR description LIKE %:val% OR \
-                location LIKE %:val%", {:val => keywords}) || []
+    Event.where("title LIKE :val OR description LIKE :val OR \
+                location LIKE :val", {:val => "%#{keywords}%"}) || []
   end
 end
