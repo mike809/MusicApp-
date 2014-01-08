@@ -34,11 +34,14 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :username
-      
+      t.string :sex
+      t.string :slug
+    
       # Uncomment below if timestamps were not included in your original model.
       t.timestamps
     end
-
+    
+    add_index :users, :slug, unique: true      
     add_index :users, :email,                :unique => true
     add_index :users, :username,             :unique => true
     add_index :users, :reset_password_token, :unique => true

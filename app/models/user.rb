@@ -19,12 +19,42 @@
 #  unconfirmed_email      :string(255)
 #  first_name             :string(255)
 #  last_name              :string(255)
+#  username               :string(255)
+#  sex                    :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
 
 class User < ActiveRecord::Base
-      
+  
+  extend FriendlyId
+  friendly_id :username
+    
   VALID_EMAIL_REGEX = Regexp.new(/\A[\w\d\.-]+@(?:\w+\.)+[\w]{2,}\Z/i)
   VALID_USERNAME_REGEX = Regexp.new(/\A\w+[\d\w\-\_]*\Z/i)
   
@@ -39,17 +69,13 @@ class User < ActiveRecord::Base
                   :first_name, :last_name, :login
                   
   attr_accessor :login
-    
-  validates :username, :uniqueness => {
-    :message => "%{value} is already registered.",
-    :case_sensitive => false
-  }
 
-  validates :email, 
-            :format => { :with => VALID_EMAIL_REGEX },
-            :uniqueness => { :case_sensitive => false }
+  validates :email, :format => { :with => VALID_EMAIL_REGEX }
+  validates :username, :format => { :with => VALID_USERNAME_REGEX }
 
-  validates :email, :presence => true,
+  validates :email, :username,
+            :presence => true,
+            :uniqueness => { :case_sensitive => false },
             :on => :create,
             :on => :update
             
@@ -57,22 +83,9 @@ class User < ActiveRecord::Base
             :presence => true,
             :length => { :minimum => 6 },
             :on => :create
-    
-  validates :username,
-            :presence => true,
-            :format => { :with => VALID_USERNAME_REGEX },
-            :on => :create, 
-            :on => :update
   
   has_many :events
   
-  # searchable do
-#     text :username, :first_name, :last_name
-# #     text :events do
-# #       events.map { |event| event.title }
-# #     end
-#   end
-#   
   def self.default
     self.new(:email => "", :password => "", :username => "")
   end
@@ -88,13 +101,12 @@ class User < ActiveRecord::Base
   end
   
   def self.search(keywords)
-    User.where("username like ? OR first_name like ? OR last_name like ?",
-               "%#{keywords}%", "%#{keywords}%", "%#{keywords}%") || []
+    User.where("lower(username) like ? OR lower(first_name) like ? OR \
+              lower(last_name) like ?", *(["%#{keywords.downcase}%"] * 3)) || []
   end
 
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
-  
 
 end

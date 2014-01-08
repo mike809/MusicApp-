@@ -21,24 +21,17 @@ class Event < ActiveRecord::Base
       
   validates :date, :poster, :user_id, :location, :minimum_age, 
             :title, :presence => true
+            
   before_validation :init_rate
   
   belongs_to :user
-  
-#   searchable do
-#     text :title, :description
-#     # text :comments do
-# #       comments.map { |comment| comment.body }
-# #     end
-#     text :location
-#   end
   
   def init_rate
     self.rate = 0
   end
   
   def self.search(keywords)
-    Event.where("title LIKE ? OR description LIKE ? OR location LIKE ?", 
-                "%#{keywords}%", "%#{keywords}%", "%#{keywords}%") || []
+    Event.where("lower(title) LIKE ? OR lower(description) LIKE ? OR \
+                lower(location) LIKE ?",  *(["%#{keywords.downcase}%"])) || []
   end
 end

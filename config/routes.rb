@@ -1,6 +1,7 @@
 MusicApp::Application.routes.draw do
 
   devise_for :users, :skip => [:sessions, :registrations, :passwords]
+  
   as :user do
     get '/login ' => 'devise/sessions#new', :as => :login
     get '/login' => 'devise/sessions#new', :as => :new_user_session
@@ -11,8 +12,8 @@ MusicApp::Application.routes.draw do
     get '/singup' => 'devise/registrations#new', :as => :signup
     post '/singup' => 'devise/registrations#create', :as => :signup
     
-    get '/users/:id/edit' => 'devise/registrations#edit', :as => :edit_user
-    put '/users/:id/' => 'devise/registrations#update', :as => :update_user
+    get ':id/edit' => 'devise/registrations#edit', :as => :edit_user
+    put ':id/' => 'devise/registrations#update', :as => :update_user
     delete '/users' => 'devise/registrations#destroy', :as => :delete_user
     
     get '/password' => 'devise/passwords#new', :as => :reset_password
@@ -21,7 +22,7 @@ MusicApp::Application.routes.draw do
     put '/password' => 'devise/passwords#update'
   end
              
-  resources :users, :only => :show do
+  resources :users, :only => :show, :path => '/' do
     resources :events, :only => [:new, :create, :edit, :update, :show, :index]
   end
   

@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :description
       t.string :location
       t.integer :minimum_age
+      t.integer :ratio
       t.binary :poster
       t.integer :rate
       t.date :date
