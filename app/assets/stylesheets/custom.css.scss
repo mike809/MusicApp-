@@ -107,11 +107,11 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
-  color: $grayLight;
+  color: lightgray;
   a {
     color: #00fff2;
     &:hover {
-      color: $grayDarker;
+      color: darkgrey;
     }
   }
   
@@ -185,7 +185,7 @@ img {
 aside {
   section {
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid gray;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -256,9 +256,9 @@ input {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid lightgray;
     &:last-child {
-      border-bottom: 1px solid $grayLighter;
+      border-bottom: 1px solid lightgray;
     }
   }
 }

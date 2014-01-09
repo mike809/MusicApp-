@@ -39,7 +39,6 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (2.1.0.0)
     bootstrap-will_paginate (0.0.6)
       will_paginate
     builder (3.0.4)
@@ -52,6 +51,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    commonjs (0.2.7)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger (1.6.3)
@@ -81,6 +81,12 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    less (2.4.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.4.2)
+      actionpack (>= 3.1)
+      less (~> 2.4.0)
+    libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -135,6 +141,7 @@ GEM
     rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    ref (1.0.5)
     rsolr (1.0.9)
       builder (>= 2.1.2)
     sass (3.2.12)
@@ -166,6 +173,9 @@ GEM
       nokogiri
       rails (>= 3)
       sunspot (= 2.1.0)
+    therubyracer (0.12.0)
+      libv8 (~> 3.16.14.0)
+      ref
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -177,6 +187,11 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    twitter-bootstrap-rails (2.2.8)
+      actionpack (>= 3.1)
+      execjs
+      rails (>= 3.1)
+      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.3.1)
       execjs (>= 0.3.0)
@@ -194,7 +209,6 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
-  bootstrap-sass
   bootstrap-will_paginate
   coffee-rails (~> 3.2.1)
   debugger
@@ -202,6 +216,7 @@ DEPENDENCIES
   friendly_id
   geocoder
   jquery-rails
+  less-rails
   mailcatcher
   pg
   rails (= 3.2.15)
@@ -211,6 +226,8 @@ DEPENDENCIES
   sqlite3
   strong_parameters
   sunspot_rails
+  therubyracer
   thin
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   will_paginate
