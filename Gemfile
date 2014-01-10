@@ -9,9 +9,6 @@ gem 'rails_12factor'
 
 gem 'addressable'
 gem 'geocoder'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-gem 'sunspot_rails'
 gem 'devise'
 gem 'strong_parameters'
 gem 'friendly_id'
@@ -22,10 +19,9 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-  gem "therubyracer"
+  gem 'therubyracer', :platforms => :ruby
   gem "less-rails"
-  gem "twitter-bootstrap-rails"
+  gem 'less-rails-bootstrap'
   gem 'uglifier', '>= 1.0.3'
 end
 

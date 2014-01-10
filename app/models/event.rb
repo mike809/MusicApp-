@@ -32,6 +32,6 @@ class Event < ActiveRecord::Base
   
   def self.search(keywords)
     Event.where("lower(title) LIKE ? OR lower(description) LIKE ? OR \
-                lower(location) LIKE ?",  *(["%#{keywords.downcase}%"])) || []
+                lower(location) LIKE ?",  *(["%#{keywords.downcase}%"]*3)) || []
   end
 end
